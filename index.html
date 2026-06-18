@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF VIP J3ba - Ahsan Zit</title>
+    <!-- Tailwind CSS --> 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font mjehd b7al dyal l-games -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'game': ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        ffYellow: '#ffc800',
+                        ffDark: '#121212',
+                        ffGray: '#1e1e1e',
+                        ffRed: '#e53935'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Oswald', sans-serif;
+            background-color: #121212;
+            overflow-x: hidden;
+        }
+
+        /* Loading Background w Animation */
+        .loading-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+        }
+
+        .loader-bar-container {
+            width: 80%;
+            max-width: 400px;
+            height: 8px;
+            background-color: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px auto;
+            border: 1px solid #ffc800;
+        }
+
+        .loader-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #ffc800;
+            box-shadow: 0 0 10px #ffc800;
+            transition: width 0.1s linear;
+        }
+
+        /* FF Style Elements */
+        .clip-path-btn {
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+        
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255, 200, 0, 0.2);
+            border-color: #ffc800;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffc800;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-white antialiased">
+
+    <!-- ==============================================
+         LOADING SCREEN DYAL FREE FIRE
+    ================================================ -->
+    <div id="loading-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center loading-bg transition-opacity duration-500">
+        <!-- Logo wla Titre fl-loading -->
+        <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-ffYellow to-orange-500 mb-2 tracking-wider transform -skew-x-12">
+            Dima free fire
+        </h1>
+        <p class="text-gray-300 text-lg md:text-xl tracking-widest mb-8">ZiT & SCRIPTS</p>
+        
+        <!-- Progress Bar -->
+        <div class="loader-bar-container relative">
+            <div id="loader-bar" class="loader-bar"></div>
+        </div>
+        
+        <!-- Nissa dyal Loading w text -->
+        <div class="flex items-center justify-between w-4/5 max-w-[400px]">
+            <p id="loading-text" class="text-ffYellow animate-pulse text-sm">Jari ta7mil l-milafat...</p>
+            <p id="loading-percent" class="text-white font-bold text-sm">0%</p>
+        </div>
+        
+        <!-- Tswira sghira dyal loading -->
+        <div class="mt-12 opacity-50 text-xs">
+            <p>Made for BOOYAH! 🚀</p>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MAIN STORE PAGE (L-BOUTIQUE)
+    ================================================ -->
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000 min-h-screen flex flex-col">
+        
+        <!-- Navbar Responsive (M9ada l PC w Telifoun) -->
+        <nav class="bg-ffGray border-b border-gray-800 p-4 sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto flex justify-between items-center relative z-50">
+                <div class="text-2xl font-bold text-ffYellow tracking-wider flex items-center gap-2">
+                    <span class="text-white">🔥J3ba  ZIT</span> Stor
+                </div>
+                
+                <!-- Menu dyal PC -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#hero" class="hover:text-ffYellow transition">Accueil</a>
+                    <a href="#shop" class="hover:text-ffYellow transition">L-Boutique</a>
+                    <a href="#contact" class="hover:text-ffYellow transition">Contact</a>
+                    <!-- WhatsApp Button l-fo9 dyal PC -->
+                    <button onclick="openModal('Twasl m3ana f WhatsApp', '0')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 clip-path-btn font-bold transition flex items-center gap-2 text-sm md:text-base ml-4">
+                        📲 WhatsApp
+                    </button>
+                </div>
+
+                <!-- Bouton dyal Menu fl-Telifoun (Hamburger) -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-ffYellow focus:outline-none flex items-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu dyal Telifoun (Kiban gha f sghir) -->
+            <div id="mobile-menu" class="fixed inset-0 bg-[#121212] bg-opacity-95 z-40 flex flex-col items-center justify-center gap-8 hidden opacity-0 transition-opacity duration-300">
+                <a href="#hero" class="mobile-link text-3xl font-bold text-white hover:text-ffYellow transition">Accueil</a>
+                <a href="#shop" class="mobile-link text-3xl font-bold text-white hover:text-ffYellow transition">L-Boutique</a>
+                <a href="#contact" class="mobile-link text-3xl font-bold text-white hover:text-ffYellow transition">Contact</a>
+                <button onclick="openModal('Twasl m3ana f WhatsApp', '0')" class="mobile-link mt-4 bg-green-500 hover:bg-green-600 text-white px-8 py-4 clip-path-btn font-bold transition flex items-center gap-2 text-xl">
+                    📲 WhatsApp
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section (Tswira w l-hdra dyal l-ktaba) -->
+        <section id="hero" class="relative pt-20 pb-32 flex items-center justify-center text-center px-4" style="background: radial-gradient(circle at center, #2a2a2a 0%, #121212 100%); border-bottom: 2px solid #ffc800;">
+            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+            <div class="relative z-10 max-w-3xl">
+                <h1 class="text-5xl md:text-7xl font-black mb-4 uppercase text-white drop-shadow-lg">
+                    Ahsan <span class="text-ffYellow">Zit</span> Dyal FF <br> F-So9!
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl mb-8 max-w-xl mx-auto">
+                    Mre7ba bik f l-blassa fin atl9a Zit, anti-ban, w les mods l-mjehdin bach tjib l-Booyah bshoula. Kolchi secure 100%.
+                </p>
+                <a href="#shop" class="inline-block bg-ffYellow hover:bg-yellow-400 text-black px-8 py-4 text-xl font-bold uppercase clip-path-btn transition-transform hover:scale-105">
+                    Chouf Les Produits 🎯
+                </a>
+            </div>
+        </section>
+
+        <!-- Shop Section (Les maket dyal l-bi3) -->
+        <section id="shop" class="py-20 px-4 flex-grow max-w-7xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-2 uppercase">Les <span class="text-ffYellow">Produits</span> VIP</h2>
+                <div class="w-24 h-1 bg-ffYellow mx-auto rounded"></div>
+                <p class="text-gray-400 mt-4">Khtar l-pack li mslkak w twasl m3ana!</p>
+            </div>
+
+            <!-- Grid dyal les produits -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Produit 1 -->
+                <div class="product-card bg-ffGray border border-gray-800 rounded-lg overflow-hidden flex flex-col relative group">
+                    <div class="absolute top-0 right-0 bg-ffRed text-white text-xs font-bold px-3 py-1 m-2 rounded z-10">HOT 🔥</div>
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-ffGray to-transparent z-10"></div>
+                        <div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')] bg-cover bg-center group-hover:scale-110 transition duration-500"></div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Mod Menu VIP</h3>
+                            <ul class="text-gray-400 text-sm space-y-2 mb-4">
+                                <li>✅ Auto Headshot 100%</li>
+                                <li>✅ Antena View</li>
+                                <li>✅ Anti-Ban System Protection</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-800">
+                            <span class="text-2xl font-bold text-ffYellow">150 MAD</span>
+                            <button onclick="openModal('Mod Menu VIP', '150')" class="bg-white text-black hover:bg-ffYellow px-4 py-2 font-bold uppercase transition rounded">
+                                Chri Daba
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produit 2 -->
+                <div class="product-card bg-ffGray border border-gray-800 rounded-lg overflow-hidden flex flex-col relative group">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-ffGray to-transparent z-10"></div>
+                        <div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')] bg-cover bg-center group-hover:scale-110 transition duration-500"></div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Script Magic Bullet</h3>
+                            <ul class="text-gray-400 text-sm space-y-2 mb-4">
+                                <li>✅ Itir mn wra l7ayt</li>
+                                <li>✅ Damage Mjehd (x2)</li>
+                                <li>✅ Config m9ada l kol telifoun</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-800">
+                            <span class="text-2xl font-bold text-ffYellow">100 MAD</span>
+                            <button onclick="openModal('Script Magic Bullet', '100')" class="bg-white text-black hover:bg-ffYellow px-4 py-2 font-bold uppercase transition rounded">
+                                Chri Daba
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produit 3 -->
+                <div class="product-card bg-ffGray border border-ffYellow rounded-lg overflow-hidden flex flex-col relative group shadow-[0_0_15px_rgba(255,200,0,0.1)]">
+                    <div class="absolute top-0 right-0 bg-ffYellow text-black text-xs font-bold px-3 py-1 m-2 rounded z-10">PREMIUM 👑</div>
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-ffGray to-transparent z-10"></div>
+                        <div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')] bg-cover bg-center group-hover:scale-110 transition duration-500"></div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Panel ZIT Kamla</h3>
+                            <ul class="text-gray-400 text-sm space-y-2 mb-4">
+                                <li>✅ Mod Menu + Scripts </li>
+                                <li>✅ Mise à jour gratuit (1 Mois)</li>
+                                <li>✅ Support VIP f WhatsApp</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-800">
+                            <span class="text-2xl font-bold text-ffYellow">350 MAD</span>
+                            <button onclick="openModal('Panel ZIT Kamla', '350')" class="bg-ffYellow text-black hover:bg-white px-4 py-2 font-bold uppercase transition rounded">
+                                Chri Daba
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="bg-black py-8 border-t border-gray-800 text-center mt-auto">
+            <div class="max-w-7xl mx-auto px-4">
+                <h3 class="text-2xl font-bold text-white mb-4">J3BA ZIT STORE <span class="text-ffYellow">FF</span></h3>
+                <p class="text-gray-500 mb-4">Hada site l-bi3 dyal ay haja mt3al9a b FF.</p>
+                <p class="text-sm text-gray-700">© 2024 JBA ZIT Store FF. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==============================================
+         MODAL DYAL CHIRA2 (POPUP WHATSAPP)
+    ================================================ -->
+    <div id="buy-modal" class="fixed inset-0 z-[100] bg-black bg-opacity-80 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-ffGray border-2 border-ffYellow rounded-xl max-w-md w-full p-6 relative transform scale-95 transition-transform duration-300" id="modal-content">
+            <!-- Close button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            
+            <h3 class="text-2xl font-bold text-white mb-2 uppercase">T2kid d-Talab</h3>
+            <div class="w-12 h-1 bg-ffYellow mb-6"></div>
+            
+            <p class="text-gray-300 mb-4 text-lg">Bghiti tchri : <span id="modal-product-name" class="font-bold text-ffYellow">...</span></p>
+            
+            <div class="bg-black p-4 rounded-lg mb-6 border border-gray-800 text-center">
+                <p class="text-gray-400 text-sm mb-1">Taman dyal l-pack:</p>
+                <p id="modal-product-price" class="text-3xl font-bold text-white">0 MAD</p>
+            </div>
+
+            <p class="text-sm text-gray-400 mb-6 text-center">
+                Bach tkamal l-khalass w takhd l-fichier dyalk, twasl m3ana f WhatsApp. 
+                Sift lina smyat l-pack li bghiti!
+            </p>
+
+            <!-- L-bouton li ghadi ydik l WhatsApp -->
+            <a id="whatsapp-link" href="#" target="_blank" class="block w-full bg-green-500 hover:bg-green-600 text-white text-center py-4 rounded font-bold text-xl uppercase transition flex items-center justify-center gap-2">
+                <span>📲</span> Sift Msg f WhatsApp
+            </a>
+            
+            <button onclick="closeModal()" class="block w-full text-center mt-4 text-gray-500 hover:text-white uppercase text-sm font-bold">
+                Rje3 l-Boutique
+            </button>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         JAVASCRIPT LOGIC
+    ================================================ -->
+    <script>
+        // Hna khass 212 f blaset 0 bach i9raha WhatsApp mazyan
+        const numWhatsApp = "212655545905"; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animation dyal Loading Bar
+            const loaderBar = document.getElementById('loader-bar');
+            const percentText = document.getElementById('loading-percent');
+            const loadingText = document.getElementById('loading-text');
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            let progress = 0;
+            const messages = [
+                "Jari ta7mil l-milafat...",
+                "Kan9ado l-configs...",
+                "Kanvériyiw l-anti-ban...",
+                "Mre7ba bik fl-VIP!"
+            ];
+
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 5) + 1;
+                if(progress > 100) progress = 100;
+                
+                loaderBar.style.width = `${progress}%`;
+                percentText.innerText = `${progress}%`;
+
+                if(progress > 25 && progress < 50) loadingText.innerText = messages[1];
+                else if(progress >= 50 && progress < 85) loadingText.innerText = messages[2];
+                else if(progress >= 85) loadingText.innerText = messages[3];
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                            mainContent.classList.remove('hidden');
+                            setTimeout(() => {
+                                mainContent.style.opacity = '1';
+                            }, 50);
+                        }, 500); 
+                    }, 500);
+                }
+            }, 50); 
+
+            // ==========================================
+            // LOGIC DYAL MENU FL-TELIFOUN (MOBILE MENU)
+            // ==========================================
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('hidden');
+                    setTimeout(() => {
+                        mobileMenu.classList.remove('opacity-0');
+                    }, 10);
+                } else {
+                    mobileMenu.classList.add('opacity-0');
+                    setTimeout(() => {
+                        mobileMenu.classList.add('hidden');
+                    }, 300);
+                }
+            }
+
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (isMenuOpen) toggleMenu();
+                });
+            });
+        });
+
+        // Fonction bach t7el l-Modal dyal WhatsApp
+        function openModal(productName, price) {
+            const modal = document.getElementById('buy-modal');
+            const modalContent = document.getElementById('modal-content');
+            const nameEl = document.getElementById('modal-product-name');
+            const priceEl = document.getElementById('modal-product-price');
+            const waLink = document.getElementById('whatsapp-link');
+
+            nameEl.innerText = productName;
+            if(price === '0') {
+                priceEl.innerText = "Twasl bach t3ref!";
+            } else {
+                priceEl.innerText = `${price} MAD`;
+            }
+
+            // Hna fina zedna l-message li tlbti b dbt
+            const message = encodeURIComponent(`Salam, ana bghit pack : ${productName}`);
+            waLink.href = `https://wa.me/${numWhatsApp}?text=${message}`;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('buy-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); 
+        }
+    </script>
+</body>
+</html>
